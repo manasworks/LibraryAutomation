@@ -151,7 +151,7 @@ public class BrowserUtils{
      * @return WebDriverWait
      */
     public static WebDriverWait getWaitObject() {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), (long) EXPLICIT_WAIT_TIME);
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), EXPLICIT_WAIT_TIME);
         return wait;
     }
 

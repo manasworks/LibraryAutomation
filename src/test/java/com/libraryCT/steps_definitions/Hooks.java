@@ -2,6 +2,8 @@ package com.libraryCT.steps_definitions;
 
 import com.libraryCT.testbase.PagesInitializer;
 import com.libraryCT.utils.BrowserUtils;
+import com.libraryCT.utils.ConfigurationReader;
+import com.libraryCT.utils.DBUtils;
 import com.libraryCT.utils.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -11,8 +13,10 @@ public class Hooks {
 
     @Before
     public void setupDriver(Scenario scenario){
-        System.out.println(">> Scenario name: "+scenario.getName());
+
         PagesInitializer.initializePageObjects();
+        DBUtils.createConnection();
+
     }
 
     @After
@@ -23,5 +27,6 @@ public class Hooks {
             scenario.attach(screenshot, "image/png", scenario.getName());
         }
         Driver.closeDriver();
+        DBUtils.closeConnection();
     }
 }

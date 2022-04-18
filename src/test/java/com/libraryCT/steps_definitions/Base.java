@@ -14,7 +14,7 @@ public class Base extends PagesInitializer {
 
     @Given("Establish the database connection")
     public void establish_the_database_connection() {
-
+        Driver.getDriver().get(ConfigurationReader.getProperty("env"));
     }
 
     @Given("user log in as a librarian")

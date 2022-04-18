@@ -17,11 +17,9 @@ public class US2_BorrowedBook_steps extends PagesInitializer {
 
     @Then("borrowed books number information must match with DB")
     public void borrowed_books_number_information_must_match_with_db() {
-        DBUtils.createConnection();
         String query = "select count(*)  from book_borrow where is_returned=0;";
         DBUtils.runQuery(query);
         String expectedBorrowedBooks = DBUtils.getCellValue(1, 1);
-        DBUtils.closeConnection();
         System.out.println("actualBorrowedBooks = " + actualBorrowedBooks);
         System.out.println("expectedBorrowedBooks = " + expectedBorrowedBooks);
         Assert.assertEquals(expectedBorrowedBooks, actualBorrowedBooks);
