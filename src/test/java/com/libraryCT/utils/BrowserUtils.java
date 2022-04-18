@@ -371,6 +371,18 @@ public class BrowserUtils{
     }
 
     /**
+     * Use this over loaded method in need of selecting an element of dropDown by
+     * VisbleText.
+     *
+     * @param dropDownWebEl Pass the WebElement of the desired dropDown.
+     * @param VisibleTextOfDD Pass the Visible text of DropDown to be selected.
+     */
+    public static void selectDropDownValue(String VisibleTextOfDD, WebElement dropDownWebEl) {
+        Select select = new Select(dropDownWebEl);
+        select.selectByVisibleText(VisibleTextOfDD);
+    }
+
+    /**
      * Verifies whether the element matching the provided locator is displayed on page
      *
      * @param by
