@@ -93,7 +93,9 @@ public class Driver {
         if (ConfigurationReader.getProperty("windowMaximize").equalsIgnoreCase("true")){
             driverPool.get().manage().window().maximize();
         } else {
-            driverPool.get().manage().window().setSize(new Dimension(ConfigurationReader.getPropertyNumber("windowWidth"), ConfigurationReader.getPropertyNumber("windowHeight")));
+            int w = Integer.parseInt(ConfigurationReader.getProperty("windowWidth") );
+            int h = Integer.parseInt(ConfigurationReader.getProperty("windowHeight") );
+            driverPool.get().manage().window().setSize(new Dimension(w, h));
         }
         driverPool.get().manage().timeouts().implicitlyWait(Constants.IMPLICIT_WAIT_TIME, TimeUnit.SECONDS);
         return driverPool.get();
