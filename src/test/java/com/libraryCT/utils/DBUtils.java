@@ -42,7 +42,6 @@ public class DBUtils {
             String url = ConfigurationReader.getProperty("dbURL");
             String username = ConfigurationReader.getProperty("dbUser");
             String password = ConfigurationReader.getProperty("dbPass");
-            System.out.println(url);
             con = DriverManager.getConnection(url, username, password);
             System.out.println("DB Connection SUCCESSFUL");
         } catch (Exception e) {

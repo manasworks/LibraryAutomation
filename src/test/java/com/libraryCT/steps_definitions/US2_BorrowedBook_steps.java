@@ -8,18 +8,22 @@ import org.junit.Assert;
 
 public class US2_BorrowedBook_steps extends PagesInitializer {
 
-    int actualBorrowedBooks=0;
+    String actualBorrowedBooks = "";
 
     @When("user take borrowed books number")
     public void user_take_borrowed_books_number() {
-        BrowserUtils.sleep(2);
-        actualBorrowedBooks = Integer.parseInt(dashboardPage.borrowedBooksNum.getText());
+        actualBorrowedBooks = BrowserUtils.getText(dashboardPage.borrowedBooksNum);
     }
+
     @Then("borrowed books number information must match with DB")
     public void borrowed_books_number_information_must_match_with_db() {
+        DBUtils.createConnection();
         String query = "select count(*)  from book_borrow where is_returned=0;";
         DBUtils.runQuery(query);
-        int expectedBorrowedBooks = Integer.parseInt(DBUtils.getCellValue(1, 1));
+        String expectedBorrowedBooks = DBUtils.getCellValue(1, 1);
+        DBUtils.closeConnection();
+        System.out.println("actualBorrowedBooks = " + actualBorrowedBooks);
+        System.out.println("expectedBorrowedBooks = " + expectedBorrowedBooks);
         Assert.assertEquals(expectedBorrowedBooks, actualBorrowedBooks);
     }
 

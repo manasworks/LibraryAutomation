@@ -71,6 +71,19 @@ public class BrowserUtils{
     }
 
     /**
+     * Use this method in need of clicking on a WebElement by selenium WebDriver.
+     *
+     * @param element Pass the desired WebElement to be clicked.
+     */
+    public static void click(WebElement element) {
+        getWaitObject().until(ExpectedConditions.elementToBeClickable(element));
+        if (ConfigurationReader.getProperty("highlight").equalsIgnoreCase("true")) {
+            highlight(element);
+        }
+        element.click();
+    }
+
+    /**
      * Use this method in need of retrieving the text of an element through selenium
      * WebDriver.
      *

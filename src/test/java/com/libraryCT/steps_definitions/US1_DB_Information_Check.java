@@ -16,9 +16,11 @@ public class US1_DB_Information_Check extends PagesInitializer {
 
     @When("Execute query to get all IDs from users")
     public void execute_query_to_get_all_i_ds_from_users() {
-        String query="select * from users;";
+        DBUtils.createConnection();
+        String query = "select * from users;";
         DBUtils.runQuery(query);
         userIDs = DBUtils.getColumnDataAsList("ID");
+        DBUtils.closeConnection();
     }
 
     @Then("verify all users has unique ID")
@@ -27,14 +29,15 @@ public class US1_DB_Information_Check extends PagesInitializer {
             int freq = Collections.frequency(userIDs, each);
             Assert.assertEquals(1, freq);
         }
-        DBUtils.closeConnection();
     }
 
     @When("Execute query to get all columns")
     public void execute_query_to_get_all_columns() {
-        String query="select * from users;";
+        DBUtils.createConnection();
+        String query = "select * from users;";
         DBUtils.runQuery(query);
         columns = DBUtils.getAllColumnNamesAsList();
+        DBUtils.closeConnection();
     }
 
     @Then("verify the below columns are listed in result")

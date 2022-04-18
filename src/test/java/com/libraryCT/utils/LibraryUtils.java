@@ -11,14 +11,14 @@ public class LibraryUtils extends PagesInitializer {
     public static void loginAsStudent(){
         sendText(inputUsername, ConfigurationReader.getProperty("user1"));
         sendText(inputPassword, ConfigurationReader.getProperty("pass1"));
-        signInButton.click();
+        click(signInButton);
         Assert.assertTrue( isElementDisplayed(dashboardPage.mainLogo) );
     }
 
     public static void loginAsLibrarian(){
-        inputUsername.sendKeys(ConfigurationReader.getProperty("user2"));
-        inputPassword.sendKeys(ConfigurationReader.getProperty("pass2"));
-        signInButton.click();
+        sendText(inputUsername, ConfigurationReader.getProperty("user2"));
+        sendText(inputPassword, ConfigurationReader.getProperty("pass2"));
+        click(signInButton);
         Assert.assertTrue( isElementDisplayed(dashboardPage.mainLogo) );
     }
 
