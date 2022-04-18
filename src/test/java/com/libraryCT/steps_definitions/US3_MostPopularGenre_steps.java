@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class US_MostPopularGenre_steps extends PagesInitializer {
+public class US3_MostPopularGenre_steps extends PagesInitializer {
 
     String mostPopularFromUI="";
     String mostPopularFromDB="";
