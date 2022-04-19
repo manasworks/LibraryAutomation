@@ -23,4 +23,16 @@ public class BooksPage {
 
     @FindBy (xpath = "//td[5]")
     public List<WebElement> genreStatus;
+
+    @FindBy (xpath = "//input[@type='search']")
+    public WebElement searchBooksInput;
+
+    @FindBy (xpath = "//td[3]")
+    public WebElement bookName;
+
+    @FindBy (xpath = "//td[4]")
+    public WebElement bookAuthor;
+
+    @FindBy (xpath = "//td[6]")
+    public WebElement bookYear;
 }
