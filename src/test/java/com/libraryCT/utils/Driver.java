@@ -102,7 +102,7 @@ public class Driver {
 
     public static void closeDriver(){
         if(driverPool.get()!=null){
-            driverPool.get().close();
+            driverPool.get().quit();
             driverPool.remove();
         }
     }

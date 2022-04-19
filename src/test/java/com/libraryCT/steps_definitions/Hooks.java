@@ -26,7 +26,7 @@ public class Hooks {
             screenshot = BrowserUtils.takeScreenshot("failed/" + scenario.getName());
             scenario.attach(screenshot, "image/png", scenario.getName());
         }
-        Driver.closeDriver();
         DBUtils.closeConnection();
+        Driver.closeDriver();
     }
 }
