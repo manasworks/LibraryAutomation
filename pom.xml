@@ -24,7 +24,7 @@
                     <parallel>methods</parallel>
                     <!--<useUnlimitedThreads>true</useUnlimitedThreads>-->
 
-                    <threadCount>2</threadCount>
+                    <threadCount>1</threadCount>
                     <perCoreThreadCount>false</perCoreThreadCount>
                     <testFailureIgnore>true</testFailureIgnore>
                     <includes>

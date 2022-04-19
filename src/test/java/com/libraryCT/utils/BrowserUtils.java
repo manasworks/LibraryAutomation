@@ -1,6 +1,7 @@
 package com.libraryCT.utils;
 
 import com.libraryCT.constants.Constants;
+import com.libraryCT.testbase.PagesInitializer;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
@@ -19,7 +20,7 @@ import static com.libraryCT.constants.Constants.EXPLICIT_WAIT_TIME;
 /**
  * This class contains web driver related methods
  */
-public class BrowserUtils{
+public class BrowserUtils extends PagesInitializer {
 
     /**
      * This method will accept int (in seconds) and execute Thread.sleep
