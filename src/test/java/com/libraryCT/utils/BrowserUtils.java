@@ -218,6 +218,10 @@ public class BrowserUtils{
      * @return List<String> actualOptionsAsString
      */
     public static List<String> dropdownOptionsAsString(WebElement dropdownElement){
+        getWaitObject().until(ExpectedConditions.elementToBeClickable(dropdownElement));
+        if (ConfigurationReader.getProperty("highlight").equalsIgnoreCase("true")) {
+            highlight(dropdownElement);
+        }
         Select select = new Select(dropdownElement);
 
         //List of all ACTUAL month <options> as a web element

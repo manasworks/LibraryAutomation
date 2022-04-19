@@ -24,3 +24,5 @@ group by full_name
 order by 2 desc ;
 
 select name, author, year from books where name='Chordeiles minor';
+
+select name from book_categories;

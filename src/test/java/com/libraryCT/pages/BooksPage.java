@@ -35,4 +35,7 @@ public class BooksPage {
 
     @FindBy (xpath = "//td[6]")
     public WebElement bookYear;
+
+    @FindBy (id = "book_categories")
+    public WebElement bookCategories;
 }
