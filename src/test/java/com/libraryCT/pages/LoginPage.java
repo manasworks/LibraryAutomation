@@ -18,13 +18,13 @@ public class LoginPage{
     }
 
     @FindBy (id = "inputEmail")
-    public static WebElement inputUsername;
+    public WebElement inputUsername;
 
     @FindBy (id = "inputPassword")
-    public static WebElement inputPassword;
+    public WebElement inputPassword;
 
     @FindBy (xpath = "//button")
-    public static WebElement signInButton;
+    public WebElement signInButton;
 
     @FindBy (xpath = "//div[@role='alert']")
     public WebElement errorMessage;

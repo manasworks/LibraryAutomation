@@ -7,28 +7,25 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static com.libraryCT.pages.LoginPage.*;
-import static com.libraryCT.utils.BrowserUtils.*;
-
 public class LibraryUtils extends PagesInitializer {
 
     public static void loginAsStudent(){
-        sendText(inputUsername, ConfigurationReader.getProperty("user1"));
-        sendText(inputPassword, ConfigurationReader.getProperty("pass1"));
-        click(signInButton);
-        Assert.assertTrue( isElementDisplayed(dashboardPage.mainLogo) );
+        BrowserUtils.sendText(loginPage.inputUsername, ConfigurationReader.getProperty("user1"));
+        BrowserUtils.sendText(loginPage.inputPassword, ConfigurationReader.getProperty("pass1"));
+        BrowserUtils.click(loginPage.signInButton);
+        Assert.assertTrue( BrowserUtils.isElementDisplayed(dashboardPage.mainLogo) );
     }
 
     public static void loginAsLibrarian(){
-        sendText(inputUsername, ConfigurationReader.getProperty("user2"));
-        sendText(inputPassword, ConfigurationReader.getProperty("pass2"));
-        click(signInButton);
-        Assert.assertTrue( isElementDisplayed(dashboardPage.mainLogo) );
+        BrowserUtils.sendText(loginPage.inputUsername, ConfigurationReader.getProperty("user2"));
+        BrowserUtils.sendText(loginPage.inputPassword, ConfigurationReader.getProperty("pass2"));
+        BrowserUtils.click(loginPage.signInButton);
+        Assert.assertTrue( BrowserUtils.isElementDisplayed(dashboardPage.mainLogo) );
     }
 
     public static void login(String username, String password){
-        sendText(inputUsername, username);
-        sendText(inputPassword, password);
+        BrowserUtils.sendText(loginPage.inputUsername, username);
+        BrowserUtils.sendText(loginPage.inputPassword, password);
     }
 
     /**
@@ -38,9 +35,9 @@ public class LibraryUtils extends PagesInitializer {
     public static void navigateTo(String link){
         try{
             WebElement element = Driver.getDriver().findElement(By.xpath("//*[text() = '"+link+"']/.."));
-            getWaitObject().until(ExpectedConditions.elementToBeClickable(element));
+            BrowserUtils.getWaitObject().until(ExpectedConditions.elementToBeClickable(element));
             if (ConfigurationReader.getProperty("highlight").equalsIgnoreCase("true")) {
-                highlight(element);
+                BrowserUtils.highlight(element);
             }
             element.click();
         } catch (NoSuchElementException e){

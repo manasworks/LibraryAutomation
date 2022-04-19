@@ -3,7 +3,6 @@ package com.libraryCT.steps_definitions;
 import com.libraryCT.testbase.PagesInitializer;
 import com.libraryCT.utils.*;
 import io.cucumber.java.en.Given;
-import org.junit.Assert;
 
 public class Base extends PagesInitializer {
 
@@ -21,6 +20,5 @@ public class Base extends PagesInitializer {
     public void user_log_in_as_a_librarian() {
         Driver.getDriver().get(ConfigurationReader.getProperty("env"));
         LibraryUtils.loginAsLibrarian();
-        Assert.assertTrue( BrowserUtils.isElementDisplayed(dashboardPage.mainLogo) );
     }
 }
