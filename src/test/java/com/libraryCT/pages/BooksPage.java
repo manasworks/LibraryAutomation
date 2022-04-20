@@ -18,10 +18,10 @@ public class BooksPage {
     @FindBy (xpath = "//th[text()='Borrowed By']")
     public WebElement filterBorrowedBy;
 
-    @FindBy (xpath = "//td[7]")
+    @FindBy (xpath = "//td[7]/text()/..")
     public List<WebElement> borrowedStatus;
 
-    @FindBy (xpath = "//td[5]")
+    @FindBy (xpath = "//td[7]/text()/../preceding-sibling::td[2]")
     public List<WebElement> genreStatus;
 
     @FindBy (xpath = "//input[@type='search']")

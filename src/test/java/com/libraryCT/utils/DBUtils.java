@@ -81,6 +81,8 @@ public class DBUtils {
             System.out.println("DB Connection closed");
         } catch (Exception e) {
             System.out.println("ERROR OCCURRED WHILE CLOSING RESOURCES " + e.getMessage());
+        } finally {
+
         }
 
     }

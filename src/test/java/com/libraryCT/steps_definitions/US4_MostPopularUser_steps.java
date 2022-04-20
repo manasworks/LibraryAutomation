@@ -23,14 +23,13 @@ public class US4_MostPopularUser_steps extends PagesInitializer {
         for (WebElement user : booksPage.borrowedStatus) {
             BrowserUtils.highlight(user);
             BrowserUtils.scrollToElement(user);
-            if (user.getText().isEmpty() || user.getText().isBlank()) break;
             listUsers.add(user.getText());
         }
         int max=0;
         for (String each : listUsers) {
-            int freq = Collections.frequency(listUsers, each);
-            if (freq>max){
-                max=freq;
+            int f = Collections.frequency(listUsers, each);
+            if (f>max){
+                max=f;
                 mostPopularFromUI=each;
             }
         }

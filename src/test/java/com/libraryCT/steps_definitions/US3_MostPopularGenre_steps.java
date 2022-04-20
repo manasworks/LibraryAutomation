@@ -7,6 +7,7 @@ import com.libraryCT.utils.LibraryUtils;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,25 +33,23 @@ public class US3_MostPopularGenre_steps extends PagesInitializer {
 
     @When("user gets most popular book genre")
     public void user_gets_most_popular_book_genre() {
-        List<String> listGenre = new ArrayList<>();
-        for (int i = 0; i < 500; i++) {
-            if (booksPage.borrowedStatus.get(i).getText().isBlank() || booksPage.borrowedStatus.get(i).getText().isEmpty()){
-                break;
-            } else {
-                BrowserUtils.highlight(booksPage.genreStatus.get(i));
-                BrowserUtils.scrollToElement(booksPage.genreStatus.get(i));
-                listGenre.add(booksPage.genreStatus.get(i).getText());
-            }
+        List<String> genres = new ArrayList<>();
+        for (WebElement each : booksPage.genreStatus) {
+            BrowserUtils.highlight(each);
+            BrowserUtils.scrollToElement(each);
+            genres.add(each.getText());
         }
         int max=0;
-        for (String each : listGenre) {
-            int freq = Collections.frequency(listGenre, each);
-            if (freq>max){
-                max=freq;
+        for (String each : genres) {
+            int f = Collections.frequency(genres, each);
+            if (f>max){
+                max=f;
                 mostPopularFromUI=each;
             }
         }
     }
+
+//td[7]/text()
 
     @When("execute a query to find the most popular book genre from DB")
     public void execute_a_query_to_find_the_most_popular_book_genre_from_db() {
