@@ -1,6 +1,6 @@
 package com.libraryCT.steps_definitions;
 
-import com.libraryCT.pages.BooksPage;
+import com.libraryCT.testbase.PagesInitializer;
 import com.libraryCT.utils.BrowserUtils;
 import com.libraryCT.utils.DBUtils;
 import io.cucumber.java.en.Then;
@@ -13,9 +13,7 @@ import java.util.List;
 
 import static com.libraryCT.utils.BrowserUtils.*;
 
-public class US5_Book_Search_steps {
-
-    BooksPage booksPage = new BooksPage();
+public class US5_Book_Search_steps extends PagesInitializer {
 
     String bookName="";
 

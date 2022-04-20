@@ -1,5 +1,6 @@
 package com.libraryCT.steps_definitions;
 
+import com.libraryCT.testbase.PagesInitializer;
 import com.libraryCT.utils.DBUtils;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -8,7 +9,7 @@ import org.junit.Assert;
 import java.util.Collections;
 import java.util.List;
 
-public class US1_DB_Information_Check{
+public class US1_DB_Information_Check extends PagesInitializer {
 
     List<String> userIDs;
     List<String> columns;

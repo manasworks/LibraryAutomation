@@ -1,6 +1,6 @@
 package com.libraryCT.steps_definitions;
 
-import com.libraryCT.pages.BooksPage;
+import com.libraryCT.testbase.PagesInitializer;
 import com.libraryCT.utils.BrowserUtils;
 import com.libraryCT.utils.DBUtils;
 import io.cucumber.java.en.Then;
@@ -12,9 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class US4_MostPopularUser_steps{
-
-    BooksPage booksPage = new BooksPage();
+public class US4_MostPopularUser_steps extends PagesInitializer {
 
     String mostPopularFromUI="";
     String mostPopularFromDB="";

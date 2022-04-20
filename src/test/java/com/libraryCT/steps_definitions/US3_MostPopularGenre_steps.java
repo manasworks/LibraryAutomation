@@ -1,6 +1,6 @@
 package com.libraryCT.steps_definitions;
 
-import com.libraryCT.pages.BooksPage;
+import com.libraryCT.testbase.PagesInitializer;
 import com.libraryCT.utils.BrowserUtils;
 import com.libraryCT.utils.DBUtils;
 import com.libraryCT.utils.LibraryUtils;
@@ -13,9 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class US3_MostPopularGenre_steps{
-
-    BooksPage booksPage = new BooksPage();
+public class US3_MostPopularGenre_steps extends PagesInitializer {
 
     String mostPopularFromUI="";
     String mostPopularFromDB="";

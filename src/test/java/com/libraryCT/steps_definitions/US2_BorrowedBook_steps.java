@@ -1,15 +1,12 @@
 package com.libraryCT.steps_definitions;
 
-
-import com.libraryCT.pages.DashboardPage;
+import com.libraryCT.testbase.PagesInitializer;
 import com.libraryCT.utils.*;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-public class US2_BorrowedBook_steps{
-
-    DashboardPage dashboardPage = new DashboardPage();
+public class US2_BorrowedBook_steps extends PagesInitializer {
 
     String actualBorrowedBooks = "";
 
