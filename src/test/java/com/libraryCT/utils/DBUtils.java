@@ -1,5 +1,7 @@
 package com.libraryCT.utils;
 
+import org.openqa.selenium.WebDriver;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -11,7 +13,8 @@ import java.util.Map;
  */
 public class DBUtils {
 
-    // declaring at class level so all methods can access
+    private DBUtils(){};
+
     private static Connection con;
     private static Statement stm;
     private static ResultSet rs;
