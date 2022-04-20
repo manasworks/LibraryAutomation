@@ -15,10 +15,14 @@ public class DBUtils {
 
     private DBUtils(){};
 
-    private static Connection con;
-    private static Statement stm;
-    private static ResultSet rs;
-    private static ResultSetMetaData rsmd;
+    private static InheritableThreadLocal<Connection> conPool = new InheritableThreadLocal<>();
+    private static InheritableThreadLocal<Statement> stmPool = new InheritableThreadLocal<>();
+    private static InheritableThreadLocal<ResultSet> rsPool = new InheritableThreadLocal<>();
+    private static InheritableThreadLocal<ResultSetMetaData> rsmdPool = new InheritableThreadLocal<>();
+//    private static Connection con;
+//    private static Statement stm;
+//    private static ResultSet rs;
+//    private static ResultSetMetaData rsmd;
 
     /**
      * Create Connection by jdbc url and username , password provided
@@ -29,7 +33,7 @@ public class DBUtils {
      */
     public static void createConnection(String url, String username, String password) {
         try {
-            con = DriverManager.getConnection(url, username, password);
+            conPool.set( DriverManager.getConnection(url, username, password) ) ;
             System.out.println("CONNECTION SUCCESSFUL");
         } catch (Exception e) {
             System.out.println("CONNECTION HAS FAILED " + e.getMessage());
@@ -45,7 +49,7 @@ public class DBUtils {
             String url = ConfigurationReader.getProperty("dbURL");
             String username = ConfigurationReader.getProperty("dbUser");
             String password = ConfigurationReader.getProperty("dbPass");
-            con = DriverManager.getConnection(url, username, password);
+            conPool.set( DriverManager.getConnection(url, username, password) ) ;
             System.out.println("DB Connection SUCCESSFUL");
         } catch (Exception e) {
             System.out.println("DB Connection HAS FAILED " + e.getMessage());
@@ -61,13 +65,13 @@ public class DBUtils {
      */
     public static ResultSet runQuery(String sql) {
         try {
-            stm = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rs = stm.executeQuery(sql); // setting the value of ResultSet object
-            rsmd = rs.getMetaData();  // setting the value of ResultSetMetaData for reuse
+            stmPool.set(conPool.get().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY));
+            rsPool.set(stmPool.get().executeQuery(sql));
+            rsmdPool.set(rsPool.get().getMetaData());
         } catch (Exception e) {
             System.out.println("ERROR OCCURRED WHILE RUNNING QUERY " + e.getMessage());
         }
-        return rs;
+        return rsPool.get();
 
     }
 
@@ -78,9 +82,9 @@ public class DBUtils {
         // WE HAVE TO CHECK IF WE HAVE THE VALID OBJECT FIRST BEFORE CLOSING THE RESOURCE
         // BECAUSE WE CAN NOT TAKE ACTION ON AN OBJECT THAT DOES NOT EXIST
         try {
-            if (rs != null) rs.close();
-            if (stm != null) stm.close();
-            if (con != null) con.close();
+            if (rsPool.get() != null) rsPool.remove();
+            if (stmPool.get() != null) stmPool.remove();
+            if (conPool.get() != null) conPool.remove();
             System.out.println("DB Connection closed");
         } catch (Exception e) {
             System.out.println("ERROR OCCURRED WHILE CLOSING RESOURCES " + e.getMessage());
@@ -95,7 +99,7 @@ public class DBUtils {
      */
     private static void resetCursor() {
         try {
-            rs.beforeFirst();
+            rsPool.get().beforeFirst();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -110,8 +114,8 @@ public class DBUtils {
 
         int rowCount = 0;
         try {
-            rs.last();
-            rowCount = rs.getRow();
+            rsPool.get().last();
+            rowCount =  rsPool.get().getRow();
         } catch (Exception e) {
             System.out.println("ERROR OCCURRED WHILE GETTING ROW COUNT " + e.getMessage());
         } finally {
@@ -128,7 +132,7 @@ public class DBUtils {
     public static int getColumnCount() {
         int columnCount = 0;
         try {
-            columnCount = rsmd.getColumnCount();
+            columnCount = rsmdPool.get().getColumnCount();
         } catch (Exception e) {
             System.out.println("ERROR OCCURRED WHILE GETTING COLUMN COUNT " + e.getMessage());
         }
@@ -146,7 +150,7 @@ public class DBUtils {
 
         try {
             for (int colIndex = 1; colIndex <= getColumnCount(); colIndex++) {
-                String columnName = rsmd.getColumnName(colIndex);
+                String columnName = rsmdPool.get().getColumnName(colIndex);
                 columnNameLst.add(columnName);
             }
         } catch (Exception e) {
@@ -169,11 +173,11 @@ public class DBUtils {
         int colCount = getColumnCount();
 
         try {
-            rs.absolute(rowNum);
+            rsPool.get().absolute(rowNum);
 
             for (int colIndex = 1; colIndex <= colCount; colIndex++) {
 
-                String cellValue = rs.getString(colIndex);
+                String cellValue = rsPool.get().getString(colIndex);
                 rowDataAsLst.add(cellValue);
 
             }
@@ -201,8 +205,8 @@ public class DBUtils {
         String cellValue = "";
 
         try {
-            rs.absolute(rowNum);
-            cellValue = rs.getString(columnIndex);
+            rsPool.get().absolute(rowNum);
+            cellValue = rsPool.get().getString(columnIndex);
 
         } catch (Exception e) {
             System.out.println("ERROR OCCURRED WHILE getCellValue " + e.getMessage());
@@ -225,8 +229,8 @@ public class DBUtils {
         String cellValue = "";
 
         try {
-            rs.absolute(rowNum);
-            cellValue = rs.getString(columnName);
+            rsPool.get().absolute(rowNum);
+            cellValue = rsPool.get().getString(columnName);
 
         } catch (Exception e) {
             System.out.println("ERROR OCCURRED WHILE getCellValue " + e.getMessage());
@@ -257,10 +261,10 @@ public class DBUtils {
         List<String> columnDataLst = new ArrayList<>();
 
         try {
-            rs.beforeFirst(); // make sure the cursor is at before first location
-            while (rs.next()) {
+            rsPool.get().beforeFirst(); // make sure the cursor is at before first location
+            while (rsPool.get().next()) {
 
-                String cellValue = rs.getString(columnNum);
+                String cellValue = rsPool.get().getString(columnNum);
                 columnDataLst.add(cellValue);
             }
 
@@ -286,10 +290,10 @@ public class DBUtils {
         List<String> columnDataLst = new ArrayList<>();
 
         try {
-            rs.beforeFirst(); // make sure the cursor is at before first location
-            while (rs.next()) {
+            rsPool.get().beforeFirst(); // make sure the cursor is at before first location
+            while (rsPool.get().next()) {
 
-                String cellValue = rs.getString(columnName);
+                String cellValue = rsPool.get().getString(columnName);
                 columnDataLst.add(cellValue);
             }
 
@@ -313,12 +317,12 @@ public class DBUtils {
         resetCursor();
         try {
 
-            while (rs.next()) {
+            while (rsPool.get().next()) {
 
                 for (int colIndex = 1; colIndex <= columnCount; colIndex++) {
 
                     //System.out.print( rs.getString(colIndex) + "\t" );
-                    System.out.printf("%-25s", rs.getString(colIndex));
+                    System.out.printf("%-25s", rsPool.get().getString(colIndex));
                 }
                 System.out.println();
 
@@ -347,11 +351,11 @@ public class DBUtils {
 
         try {
 
-            rs.absolute(rowNum);
+            rsPool.get().absolute(rowNum);
 
             for (int colIndex = 1; colIndex <= columnCount; colIndex++) {
-                String columnName = rsmd.getColumnName(colIndex);
-                String cellValue = rs.getString(colIndex);
+                String columnName = rsmdPool.get().getColumnName(colIndex);
+                String cellValue = rsPool.get().getString(colIndex);
                 rowMap.put(columnName, cellValue);
             }
 
