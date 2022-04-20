@@ -20,7 +20,6 @@ public class DBUtils {
     private static InheritableThreadLocal<ResultSet> rsPool = new InheritableThreadLocal<>();
     private static InheritableThreadLocal<ResultSetMetaData> rsmdPool = new InheritableThreadLocal<>();
 
-
     /**
      * Create Connection by jdbc url and username , password provided
      *
