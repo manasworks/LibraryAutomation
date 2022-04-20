@@ -1,6 +1,5 @@
 package com.libraryCT.steps_definitions;
 
-import com.libraryCT.testbase.PagesInitializer;
 import com.libraryCT.utils.DBUtils;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -9,13 +8,14 @@ import org.junit.Assert;
 import java.util.Collections;
 import java.util.List;
 
-public class US1_DB_Information_Check extends PagesInitializer {
+public class US1_DB_Information_Check{
 
     List<String> userIDs;
     List<String> columns;
 
     @When("Execute query to get all IDs from users")
     public void execute_query_to_get_all_i_ds_from_users() {
+        DBUtils.createConnection();
         String query = "select * from users;";
         DBUtils.runQuery(query);
         userIDs = DBUtils.getColumnDataAsList("ID");

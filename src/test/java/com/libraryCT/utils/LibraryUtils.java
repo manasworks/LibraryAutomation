@@ -1,15 +1,19 @@
 package com.libraryCT.utils;
 
-import com.libraryCT.testbase.PagesInitializer;
+import com.libraryCT.pages.DashboardPage;
+import com.libraryCT.pages.LoginPage;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class LibraryUtils extends PagesInitializer {
+public class LibraryUtils{
+
 
     public static void loginAsStudent(){
+        LoginPage loginPage = new LoginPage();
+        DashboardPage dashboardPage = new DashboardPage();
         BrowserUtils.sendText(loginPage.inputUsername, ConfigurationReader.getProperty("user1"));
         BrowserUtils.sendText(loginPage.inputPassword, ConfigurationReader.getProperty("pass1"));
         BrowserUtils.click(loginPage.signInButton);
@@ -17,6 +21,8 @@ public class LibraryUtils extends PagesInitializer {
     }
 
     public static void loginAsLibrarian(){
+        LoginPage loginPage = new LoginPage();
+        DashboardPage dashboardPage = new DashboardPage();
         BrowserUtils.sendText(loginPage.inputUsername, ConfigurationReader.getProperty("user2"));
         BrowserUtils.sendText(loginPage.inputPassword, ConfigurationReader.getProperty("pass2"));
         BrowserUtils.click(loginPage.signInButton);
@@ -24,6 +30,7 @@ public class LibraryUtils extends PagesInitializer {
     }
 
     public static void login(String username, String password){
+        LoginPage loginPage = new LoginPage();
         BrowserUtils.sendText(loginPage.inputUsername, username);
         BrowserUtils.sendText(loginPage.inputPassword, password);
     }

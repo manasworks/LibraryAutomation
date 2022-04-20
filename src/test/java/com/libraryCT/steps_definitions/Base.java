@@ -1,10 +1,9 @@
 package com.libraryCT.steps_definitions;
 
-import com.libraryCT.testbase.PagesInitializer;
 import com.libraryCT.utils.*;
 import io.cucumber.java.en.Given;
 
-public class Base extends PagesInitializer {
+public class Base{
 
     @Given("user on the login page")
     public void user_on_the_login_page() {

@@ -1,7 +1,6 @@
 package com.libraryCT.steps_definitions;
 
-import com.libraryCT.testbase.PagesInitializer;
-import com.libraryCT.utils.BrowserUtils;
+import com.libraryCT.pages.BooksPage;
 import com.libraryCT.utils.DBUtils;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -11,7 +10,9 @@ import java.util.List;
 
 import static com.libraryCT.utils.BrowserUtils.dropdownOptionsAsString;
 
-public class US6_BookCategories_steps extends PagesInitializer {
+public class US6_BookCategories_steps {
+
+    BooksPage booksPage = new BooksPage();
 
     List<String> bookCategoriesUI;
     List<String> bookCategoriesDB;
@@ -23,6 +24,7 @@ public class US6_BookCategories_steps extends PagesInitializer {
 
     @When("execute a query to get book categories")
     public void execute_a_query_to_get_book_categories() {
+        DBUtils.createConnection();
         String query = "select name from book_categories;";
         DBUtils.runQuery(query);
         bookCategoriesDB = DBUtils.getColumnDataAsList(1);

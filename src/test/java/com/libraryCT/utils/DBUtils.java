@@ -19,10 +19,7 @@ public class DBUtils {
     private static InheritableThreadLocal<Statement> stmPool = new InheritableThreadLocal<>();
     private static InheritableThreadLocal<ResultSet> rsPool = new InheritableThreadLocal<>();
     private static InheritableThreadLocal<ResultSetMetaData> rsmdPool = new InheritableThreadLocal<>();
-//    private static Connection con;
-//    private static Statement stm;
-//    private static ResultSet rs;
-//    private static ResultSetMetaData rsmd;
+
 
     /**
      * Create Connection by jdbc url and username , password provided
