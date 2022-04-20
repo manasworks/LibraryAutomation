@@ -25,6 +25,7 @@ public class US5_Book_Search_steps extends PagesInitializer {
     }
     @Then("book information must match with the Database")
     public void book_information_must_match_with_the_database() {
+        DBUtils.createConnection();
 
         List<String> bookInfoUI = new ArrayList<>();
         bookInfoUI.add(getText(booksPage.bookName));

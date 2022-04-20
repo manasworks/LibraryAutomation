@@ -7,7 +7,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-public class Login_steps_defs extends PagesInitializer{
+public class Login_steps_defs extends PagesInitializer {
 
     @When("user enters {string} and {string}")
     public void user_enters_and(String username, String password) {
@@ -21,6 +21,7 @@ public class Login_steps_defs extends PagesInitializer{
 
     @Then("Verify user see the {string} page")
     public void verify_user_see_the_page(String title) {
+
         Assert.assertTrue( BrowserUtils.isElementDisplayed(dashboardPage.mainLogo) );
     }
 

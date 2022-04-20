@@ -37,6 +37,7 @@ public class US4_MostPopularUser_steps extends PagesInitializer {
 
     @When("execute a query to find the most popular user from DB")
     public void execute_a_query_to_find_the_most_popular_user_from_db() {
+        DBUtils.createConnection();
         String query="select full_name,count(*) from users u inner join book_borrow bb on u.id = bb.user_id\n" +
                 "group by full_name\n" +
                 "order by 2 desc";

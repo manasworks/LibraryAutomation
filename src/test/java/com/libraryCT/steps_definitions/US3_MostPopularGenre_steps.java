@@ -53,6 +53,7 @@ public class US3_MostPopularGenre_steps extends PagesInitializer {
 
     @When("execute a query to find the most popular book genre from DB")
     public void execute_a_query_to_find_the_most_popular_book_genre_from_db() {
+        DBUtils.createConnection();
         String query="select name from book_categories\n" +
                 "where name = (\n" +
                 "    select book_categories.name from books\n" +
