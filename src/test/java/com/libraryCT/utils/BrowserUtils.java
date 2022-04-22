@@ -63,9 +63,7 @@ public class BrowserUtils{
      */
     public static void sendText(WebElement element, String text) {
         getWaitObject().until(ExpectedConditions.visibilityOf(element));
-        if (ConfigurationReader.getProperty("highlight").equalsIgnoreCase("true")) {
-            highlight(element);
-        }
+        highlight(element);
         element.clear();
         element.sendKeys(text);
     }
@@ -77,9 +75,7 @@ public class BrowserUtils{
      */
     public static void click(WebElement element) {
         getWaitObject().until(ExpectedConditions.elementToBeClickable(element));
-        if (ConfigurationReader.getProperty("highlight").equalsIgnoreCase("true")) {
-            highlight(element);
-        }
+        highlight(element);
         element.click();
     }
 
@@ -92,9 +88,7 @@ public class BrowserUtils{
      */
     public static String getText(WebElement element) {
         getWaitObject().until(ExpectedConditions.visibilityOf(element));
-        if (ConfigurationReader.getProperty("highlight").equalsIgnoreCase("true")) {
-            highlight(element);
-        }
+        highlight(element);
         return element.getText();
     }
 
@@ -133,16 +127,13 @@ public class BrowserUtils{
      * @param element
      */
     public static void highlight(WebElement element){
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) Driver.getDriver();
-
-        jsExecutor.executeScript("arguments[0].style.border='3px solid orange'", element);
-        jsExecutor.executeScript("arguments[0].style.backgroundColor='yellow'", element);
-        jsExecutor.executeScript("arguments[0].style.color='black'", element);
-
-
-        jsExecutor.executeScript("arguments[0].style.backgroundColor=''", element);
-        jsExecutor.executeScript("arguments[0].style.border='0px solid black'", element);
-        jsExecutor.executeScript("arguments[0].style.color=''", element);
+        if (ConfigurationReader.getProperty("highlight").equalsIgnoreCase("true")) {
+            JavascriptExecutor jsExecutor = (JavascriptExecutor) Driver.getDriver();
+            jsExecutor.executeScript("arguments[0].style.border='3px solid orange'", element);
+            jsExecutor.executeScript("arguments[0].style.backgroundColor='yellow'", element);
+            jsExecutor.executeScript("arguments[0].style.backgroundColor=''", element);
+            jsExecutor.executeScript("arguments[0].style.border='0px solid black'", element);
+        }
     }
 
     /**
@@ -182,9 +173,7 @@ public class BrowserUtils{
     public static boolean isElementDisplayed(WebElement element) {
         try {
             getWaitObject().until(ExpectedConditions.visibilityOf(element));
-            if (ConfigurationReader.getProperty("highlight").equalsIgnoreCase("true")) {
-                highlight(element);
-            }
+            highlight(element);
             return element.isDisplayed();
         } catch (Exception e) {
             return false;
@@ -219,9 +208,7 @@ public class BrowserUtils{
      */
     public static List<String> dropdownOptionsAsString(WebElement dropdownElement){
         getWaitObject().until(ExpectedConditions.elementToBeClickable(dropdownElement));
-        if (ConfigurationReader.getProperty("highlight").equalsIgnoreCase("true")) {
-            highlight(dropdownElement);
-        }
+        highlight(dropdownElement);
         Select select = new Select(dropdownElement);
 
         //List of all ACTUAL month <options> as a web element
